@@ -19,4 +19,21 @@ public class BowlingTest {
         Bowling bowling = new Bowling();
         Assert.assertEquals(20,bowling.game(rolls));
     }
+
+    @Test
+    public void assertThatGameScoringOneSparesPlusOneEqualsTwelve() {
+        int[] rolls =new int[] {1,9, 1,0, 0,0, 0,0, 0,0,
+                0,0, 0,0, 0,0, 0,0, 0,0};
+        Bowling bowling = new Bowling();
+        Assert.assertEquals(12,bowling.game(rolls));
+    }
+
+    @Test
+    public void assertThatGameScoringOTwoSparesPlusOneEqualsTwelve() {
+        int[] rolls =new int[] {1,9, 1,0, 0,0, 0,0, 0,0,
+                0,0, 0,0, 0,0, 1,9, 1,0};
+        Bowling bowling = new Bowling();
+        Assert.assertEquals(24,bowling.game(rolls));
+    }
+
 }
