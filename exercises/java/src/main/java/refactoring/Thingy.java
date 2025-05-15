@@ -7,27 +7,31 @@ import java.nio.charset.StandardCharsets;
 
 class Thingy {
 
-    private int foo;
-    private int bar;
-    private int foobar = new int[]{0, 0, 0, 0, 0}.length;
+    private int startsAtZeroEndsAtHundred;
+    private int countsToThree;
+    private int countsDownFromFive = new int[]{0, 0, 0, 0, 0}.length;
 
     String doTheThing() {
-        String s = "";
-        for (; foo < Byte.MAX_VALUE - 27; foo++) s += b(foo) + " ";
-        return s.substring(0, s.length() - 1);
+        String empty = "";
+        for (; startsAtZeroEndsAtHundred < Byte.MAX_VALUE - 27; startsAtZeroEndsAtHundred++) empty += decodeBasedOnIfThreeOrFive(startsAtZeroEndsAtHundred) + " ";
+        return empty.substring(0, empty.length() - 1);
     }
 
-    private String b(int foo) {
-        bar++;
-        foobar--;
-        String s = bar == 0b11 || foobar == 0 ? "" : String.valueOf(foo + 1);
-        if (bar == 0b11) s += bar();
-        if (foobar == 0) s += foo();
+    private String decodeBasedOnIfThreeOrFive(int foo) {
+        countsToThree++;
+        countsDownFromFive--;
+        boolean fiveIsZero = countsDownFromFive == 0;
+        boolean countIsThree = countsToThree == 0b11;
+        boolean CountIsEitherThreeOrFive = countIsThree || fiveIsZero;
+        String s = CountIsEitherThreeOrFive ? "" : String.valueOf(foo + 1);
+        if (countIsThree) s += decode();
+        if (fiveIsZero) s += alsoDecode();
         return s;
     }
 
-    private String foo() {
-        foobar = new int[]{0, 0, 0, 0, 0}.length;
+    private String alsoDecode() {
+        int five = new int[]{0, 0, 0, 0, 0}.length;
+        countsDownFromFive = five;
         try {
             return new String(Hex.decodeHex("42757a7a"), StandardCharsets.UTF_8);
         } catch (DecoderException e) {
@@ -35,8 +39,8 @@ class Thingy {
         }
     }
 
-    private String bar() {
-        bar = 0;
+    private String decode() {
+        countsToThree = 0;
         try {
             return new String(Hex.decodeHex("46697a7a"), StandardCharsets.UTF_8);
         } catch (DecoderException e) {

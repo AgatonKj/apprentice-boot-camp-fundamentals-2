@@ -44,5 +44,10 @@ public class BowlingTest {
         Assert.assertEquals(14,bowling.game(rolls));
     }
 
-
+    @Test
+    public void assertThatGameScoringOnlyStrikesResultIn3000() {
+        int[] rolls =new int[] {10,10,10,10,10,10,10,10,10,10,10,10,};
+        Bowling bowling = new Bowling();
+        Assert.assertEquals(300,bowling.game(rolls));
+    }
 }
